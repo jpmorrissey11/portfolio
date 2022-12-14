@@ -24,6 +24,7 @@ args = Namespace(
 df = pd.read_csv(args.path_to_data)
 df.columns = [c.lower() for c in df.columns]
 df.columns = args.columns
+
 df["text"] = df["text"].apply(replace_html)
 df["text"] = df["text"].apply(clean)
 df["text"] = df["text"].apply(remove_patterns, args=(["pattern_to_remove"],))
@@ -35,7 +36,6 @@ df.summary = "summarize: " + df.summary
 train_df, test_df = train_test_split(df, test_size=0.1)
 
 MODEL_NAME = "t5-base"
-
 tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME)
 
 N_EPOCHS = 2

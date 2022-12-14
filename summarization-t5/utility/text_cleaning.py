@@ -37,29 +37,3 @@ def remove_patterns(text, patterns):
     for pattern in patterns:
         text = text.replace(pattern, "")
     return text
-
-
-patterns = [
-    "Chat Started",
-    "Chat Origin",
-    "Agent",
-    "Live Support Agent",
-    "Enter a question to start a conversation with a Live Support Agent",
-    "East Tier 1",
-    "East Tier 2",
-    "East Tier 3",
-    "East Tier 4",
-    "West Tier 1",
-    "West Tier 2",
-    "West Tier 3",
-    "West Tier 4",
-    "Enter a question to start a conversation with a Live Support",
-    "How can we help?",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    ":",
-    ",",
-]

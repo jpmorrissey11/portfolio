@@ -16,14 +16,10 @@ from snorkel.labeling.lf.nlp import nlp_labeling_function
 
 spacy = SpacyPreprocessor(text_field="text", doc_field="doc", memoize=True)
 
-file = open(
-    "./keyphrases.json"
-)
+file = open("../data/keyphrases.json")
 keywords: Dict = json.load(file)
 
-data = pd.read_csv(
-    "/path/to/data"
-)
+data = pd.read_csv("../data/snowflake_data.csv")
 
 data.columns = [column.lower() for column in data.columns]
 data = data.rename(columns={"description": "text"})
@@ -40,6 +36,7 @@ def contains_question_word(row, question_words=keywords["question_word"]):
         if token in question_words:
             return QUESTION
     return ABSTAIN
+
 
 @labeling_function(pre=[spacy])
 def contains_verb(row):
@@ -95,8 +92,6 @@ label_df = pd.concat([data, L], axis=1)
 label_df["has_label"] = label_df.apply(has_label, axis=1).astype("int")
 
 no_label_df = label_df[label_df.has_label == 0]
-
-# breakpoint()
 
 output_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data/")
 label_df.to_csv(os.path.join(output_path, "labeled_data.csv"), index=False)

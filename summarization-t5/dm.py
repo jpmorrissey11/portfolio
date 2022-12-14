@@ -1,17 +1,11 @@
-# @title SummaryDataset
-
 import pytorch_lightning as pl
 import pandas as pd
 from torch.utils.data import Dataset, DataLoader
 from transformers import (
-    AdamW,
-    T5ForConditionalGeneration,
     T5TokenizerFast as T5Tokenizer,
 )
 
-# @title Define Tokenizer
 MODEL_NAME = "t5-base"
-
 tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME)
 
 

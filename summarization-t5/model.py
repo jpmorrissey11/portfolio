@@ -1,31 +1,15 @@
-# @title Model
-# @title Imports
 import pytorch_lightning as pl
-import json
-import pandas as pd
-import numpy as np
-import torch
-from pathlib import Path
-from torch.utils.data import Dataset, DataLoader
-
-from pytorch_lightning.callbacks import ModelCheckpoint
-from pytorch_lightning.loggers import TensorBoardLogger
-from sklearn.model_selection import train_test_split
-
 from transformers import (
     AdamW,
     T5ForConditionalGeneration,
-    T5TokenizerFast as T5Tokenizer,
 )
-
-MODEL_NAME = "t5-base"
 
 
 class SummaryModel(pl.LightningModule):
     def __init__(self):
         super().__init__()
         self.model = T5ForConditionalGeneration.from_pretrained(
-            MODEL_NAME, return_dict=True
+            "t5-base", return_dict=True
         )
 
     def forward(self, input_ids, attention_mask, decoder_attention_mask, labels=None):
