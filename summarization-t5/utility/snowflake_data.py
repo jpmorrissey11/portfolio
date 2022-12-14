@@ -1,13 +1,12 @@
+# Query a Snowflake hosted dataset using snowflake + snowpark + SQL
+# Convert to pandas dataframe and preprocess
+
+
 import numpy as np
 import sys
 import snowflake.snowpark.functions as F
 from snowflake.snowpark import Session
 
-# Create a session
-
-DEFAULT_GET_SCHEMA_QUERY = """
-    SELECT 'CUPOLA_PROD."' || "schema" || '_unfiltered"' FROM CUPOLEA_PROD.PUBLIC.imports i ORDER BY i."schema" desc LIMIT 1
-"""
 
 user = "XXX"
 account = "XXX"
