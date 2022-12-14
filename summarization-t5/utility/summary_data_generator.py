@@ -1,3 +1,5 @@
+# Generate bootstrap training data
+
 import pandas as pd
 from transformers import pipeline
 from utility import replace_html, clean
