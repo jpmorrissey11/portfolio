@@ -18,12 +18,21 @@ pl.seed_everything(42)
 
 args = Namespace(
     path_to_data="path/to/data.csv",
-    columns=["summary", "text"],
 )
 
 df = pd.read_csv(args.path_to_data)
-df.columns = [c.lower() for c in df.columns]
-df.columns = args.columns
+
+column_mapping = {
+    "col1": "summary",
+    "col2": "text
+    ",
+}
+
+# define remaining columns
+columns = [c for c in column_mapping.keys() if column_mapping[c] != None]
+
+# select and rename those columns
+df = df[columns].rename(columns=column_mapping)
 
 df["text"] = df["text"].apply(replace_html)
 df["text"] = df["text"].apply(clean)

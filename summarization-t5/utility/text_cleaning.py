@@ -1,8 +1,9 @@
 # @title Funcs
 import re
 from dateutil.parser import parse
-import pandas as pd
 import html
+import textacy
+import textacy.preprocessing as tprep
 
 
 def replace_html(text):
@@ -36,4 +37,23 @@ def clean(text):
 def remove_patterns(text, patterns):
     for pattern in patterns:
         text = text.replace(pattern, "")
+    return text
+
+
+RE_SUSPICIOUS = re.compile(r"[<>{}\[\]\\]")
+
+
+def impurity(text, min_len=10):
+    """returns the share of suspicious characters in a text"""
+    if text == None or len(text) < min_len:
+        return 0
+    else:
+        return len(RE_SUSPICIOUS.findall(text)) / len(text)
+
+
+def normalize(text):
+    text = tprep.normalize.hyphenated_words(text)
+    text = tprep.normalize.quotation_marks(text)
+    text = tprep.normalize.unicode(text)
+    text = tprep.remove.accents(text)
     return text
